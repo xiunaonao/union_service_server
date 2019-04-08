@@ -27,8 +27,8 @@ function get_web_token(code,callback){
 		if(body.errcode){
 			callback(body.errcode)
 		}else{
-			get_user(body.openid,(body2)=>{
-				callback(null,body2)
+			get_user(body.openid,(error,body2)=>{
+				callback(error,body2)
 			})
 			//callback(null,body.openid)
 		}
