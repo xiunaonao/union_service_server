@@ -54,7 +54,7 @@ router.get('/get_wechat_user',(req,res,next)=>{
 
 	if(!query.code){
 		res.json({success:false,msg:'请传递code'})
-		break
+		return
 	}
 	let code=query.code
 	wechat.get_web_token(code,(err,body)=>{
