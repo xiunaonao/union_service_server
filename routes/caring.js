@@ -1,8 +1,8 @@
 let express=require('express')
 let router=express.Router()
 let mssql=require('../server/mssql')
-
-
+let wechat=require('../server/wechat_free')
+let union_wechat={appid:'wxb5ed549f53f1ba99',secret:'dcf380db539d0ec48e4d4e759440b1b8'}
 
 
 router.get('/base',(req,res,next)=>{
@@ -49,7 +49,23 @@ router.get('/expenditure',(req,res,next)=>{
 	})
 })
 
-router.get('/news')
+router.get('/get_wechat_user',(req,res,next)=>{
+	let query=req.query
+
+	if(!query.code){
+		res.json({success:false,msg:'请传递code'})
+		break
+	}
+	let code=query.code
+	wechat.get_web_token(code,(err,body)=>{
+		if(err){
+			res.json({success:0})
+		}else{
+			res.json({success:1,data:body})
+		}
+	},union_wechat)
+
+})
 
 
 function base_where(query){
