@@ -2,7 +2,7 @@ let express=require('express')
 let router=express.Router()
 let mssql=require('../server/mssql')
 let wechat=require('../server/wechat_free')
-let union_wechat={appid:'wxb5ed549f53f1ba99',secret:'dcf380db539d0ec48e4d4e759440b1b8'}
+let union_wechat={appid:'wxb5ed549f53f1ba99',secret:'9e2e9837c28f3f849613c23cd1aa9a81'}
 
 
 router.get('/base',(req,res,next)=>{
