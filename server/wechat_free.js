@@ -29,7 +29,7 @@ function get_web_token(code,callback,wechat_token){
 		}else{
 			get_user(body.openid,(error,body2)=>{
 				callback(error,body2)
-			})
+			},wechat_token)
 			//callback(null,body.openid)
 		}
 	})
@@ -45,7 +45,7 @@ function get_user(openid,callback){
 			}else{
 				callback(null,body)
 			}
-		})
+		},wechat_token)
 
 	})
 }
