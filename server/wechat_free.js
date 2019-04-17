@@ -45,9 +45,9 @@ function get_user(openid,callback){
 			}else{
 				callback(null,body)
 			}
-		},wechat_token)
+		})
 
-	})
+	},wechat_token)
 }
 
 function set_menu(callback){
