@@ -21,10 +21,6 @@ router.get('/income',(req,res,next)=>{
 
 	let where=base_where(query)
 
-	
-
-
-
 	mssql.query('caring_income_info',where,(err,result,count)=>{
 		if(err){
 			res.json({success:0})
@@ -65,6 +61,15 @@ router.get('/get_wechat_user',(req,res,next)=>{
 		}
 	},union_wechat)
 
+})
+
+router.get('/get_wechat_user_test',(req,res,next)=>{
+	let query=req.query
+	if(query.pwd!='zxw233'){
+		res.json({success:0})
+		return
+	}
+	res.json({"success":1,"data":{"subscribe":1,"openid":"om-NlwIIEXNK_ghTdb_-U-lNhz8g","nickname":"ᕕ(ᐛ)ᕗ变身!","sex":1,"language":"zh_CN","city":"杭州","province":"浙江","country":"中国","headimgurl":"http://thirdwx.qlogo.cn/mmopen/ePlP89AExr1k6TjdBrKTTWDz43qgj27JTkSnrreZBTcTRv8R0fCic1tfw5y1pt1xLxgXx5BBOicyiaqT35VAGlFuxf0GYoiajfng/132","subscribe_time":1535342375,"unionid":"oR0vSwEa-x8btIwgoxXgDSItZCyY","remark":"","groupid":0,"tagid_list":[],"subscribe_scene":"ADD_SCENE_SEARCH","qr_scene":0,"qr_scene_str":""}})
 })
 
 
