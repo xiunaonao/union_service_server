@@ -64,8 +64,7 @@ router.get('/create_order', function(req, res, next) {
 
             	//res.json(success)
                 if (success.xml.return_code[0] === 'SUCCESS') {
-                	res.json(success)
-                	return
+
                     const prepayId = success.xml.prepay_id[0]
                     const payParamsObj = getPayParams(prepayId, tradeId)
                     // 返回给前端, 这里是 express 的写法
@@ -88,11 +87,6 @@ router.get('/create_order', function(req, res, next) {
 
 })
 
-router.get('/pay_data',(req,res,next)=>{
-	const appid=''
-	const nonceStr=''
-	const 
-})
 
 router.get('/pay',(req,res,next)=>{
 
