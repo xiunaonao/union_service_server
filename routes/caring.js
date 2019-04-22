@@ -18,13 +18,13 @@ router.get('/base',(req,res,next)=>{
 
 router.post('/income_add',(req,res,next)=>{
 	let query=req.query
-	let openid=req.query
-	let name=req.name
-	let headimgurl=req.headimg
+	let openid=query.openid
+	let name=query.name
+	let headimgurl=query.query.headimg
 	let created_time=new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds()
-	let amount=req.price
+	let amount=query.price
 	let pid=20190501
-	let remark=req.remark
+	let remark=query.remark
 	res.set({
 		'Access-Control-Allow-Origin': '*'
 	})
