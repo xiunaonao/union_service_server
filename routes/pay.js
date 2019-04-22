@@ -8,7 +8,23 @@ const md5 = require('blueimp-md5')
 const xml2js = require('xml2js')
 const xmlParser = new xml2js.Parser()
 let mssql=require('../server/mssql')
+
+
+const attach = 'cx_union'
+const appId='wxb5ed549f53f1ba99'
+const mchId='1532951301'
 const PAY_API_KEY='Hzhm233Cxxzgh666Zxw999Txwx213213'
+	const nonceStr=getNonceStr()
+	const sign_type='MD5'
+	const tradeId = getTradeId(attach)
+	const ip='121.43.36.218'
+	const notifyUrl='http://www.weixin.qq.com/wxpay/pay.php'
+	const trade_type='JSAPI'
+	const productIntro='长兴县总工会慈善分会'
+
+
+
+
 
 /* GET home page. */
 router.get('/create_order', function(req, res, next) {
@@ -21,21 +37,12 @@ router.get('/create_order', function(req, res, next) {
 	})
   //res.render('index', { title: 'Express' });
 	let url='https://api.mch.weixin.qq.com/pay/unifiedorder'
-	const attach = 'cx_union'
-	const appId='wxb5ed549f53f1ba99'
-	const mchId='1532951301'
-	const nonceStr=getNonceStr()
-	const sign_type='MD5'
-	const tradeId = getTradeId(attach)
-	const ip='121.43.36.218'
-	const price=req.query.price
-	const notifyUrl='http://www.weixin.qq.com/wxpay/pay.php'
-	const trade_type='JSAPI'
+
+	const price=req.query.price*100
 	const openId=req.query.openid
-	const productIntro='长兴县总工会慈善分会'
 	const sign = getPrePaySign(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price)
 	const sendData = wxSendData(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price, sign)
-	axios.post('https://api.mch.weixin.qq.com/pay/unifiedorder', sendData).then(wxResponse => {
+	axios.post(url, sendData).then(wxResponse => {
        // 微信返回的数据也是 xml, 使用 xmlParser 将它转换成 js 的对象
         xmlParser.parseString(wxResponse.data, (err, success) => {
         	console.log(err)
@@ -68,20 +75,23 @@ router.get('/create_order', function(req, res, next) {
                     const prepayId = success.xml.prepay_id[0]
                     const payParamsObj = getPayParams(prepayId, tradeId)
                     // 返回给前端, 这里是 express 的写法
-                    res.json(payParamsObj)
+                    res.json({success:1,data:payParamsObj})
                 } else {
+                	res.json({success:0.data:null})
                     // 错误处理
-                    if (err) {
-                        log('axios post error', err)
-                        res.sendStatus(502)
-                    } else if (success.xml.return_code[0] !== 'SUCCESS') {
-                        res.sendStatus(403)
-                    }
+                    // if (err) {
+                    //     //log('axios post error', err)
+                    //     //res.sendStatus(502)
+                    //     res.json
+                    // } else if (success.xml.return_code[0] !== 'SUCCESS') {
+                    //     res.sendStatus(403)
+                    // }
                 }
             }
         })
     }).catch(err => {
-        log('post wx err', err)
+        //log('post wx err', err)
+        console.log(err)
         res.json({err:err})
     })
 
