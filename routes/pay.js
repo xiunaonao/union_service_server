@@ -37,8 +37,8 @@ router.get('/', function(req, res, next) {
                 log('parser xml error ', err)
                 res.json(err)
             } else {
-            	res.json(success)
-            	return
+            	// res.json(success)
+            	// return
                 if (success.xml.return_code[0] === 'SUCCESS') {
                     const prepayId = success.xml.prepay_id[0]
                     const payParamsObj = getPayParams(prepayId, tradeId)
