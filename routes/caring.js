@@ -16,6 +16,54 @@ router.get('/base',(req,res,next)=>{
 	})
 })
 
+router.post('/income_add',(req,res,next)=>{
+	let query=req.query
+	let openid=req.query
+	let name=req.name
+	let headimgurl=req.headimg
+	let created_time=new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds()
+	let amount=req.price
+	let pid=20190501
+	let remark=req.remark
+	mssql.insert('caring_income_info',{
+		openid:{
+			type:'',
+			value:openid
+		},
+		member_name:{
+			type:'',
+			value:name
+		},
+		head_url:{
+			type:'',
+			value:headimgurl
+		},
+		created_time:{
+			type:'date',
+			value:created_time
+		},
+		amount:{
+			type:'num',
+			value:amount
+		},
+		project_id:{
+			type:'num',
+			value:pid
+		},
+		remark:{
+			type:'',
+			value:remark
+		}
+	},(err,result,count)=>{
+		if(err){
+			res.json({success:0,msg:'database error',err:err})
+		}else{
+			res.json({success:1})
+		}
+
+	})
+})
+
 router.get('/income',(req,res,next)=>{
 	let query = req.query
 

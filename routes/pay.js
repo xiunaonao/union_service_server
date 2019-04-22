@@ -35,7 +35,7 @@ router.get('/create_order', function(req, res, next) {
 	})
   //res.render('index', { title: 'Express' });
 	let url='https://api.mch.weixin.qq.com/pay/unifiedorder'
-	
+
 	const nonceStr=getNonceStr()
 	const tradeId = getTradeId(attach)
 	const price=req.query.price
@@ -55,25 +55,29 @@ router.get('/create_order', function(req, res, next) {
             	// res.json(success)
             	// return
 
+            try{
+            	mssql.insert('cxwx_order_info',{
+					openid:{
+						type:'',
+						value:openId
+					},
+					str:{
+						type:'',
+						value:success
+					}
+				},(err,result,count)=>{
 
-    //         	mssql.insert('cxwx_order_info',{
-				// 	openid:{
-				// 		type:'',
-				// 		value:openId
-				// 	},
-				// 	str:{
-				// 		type:'',
-				// 		value:success
-				// 	}
-				// },(err,result,count)=>{
-
-				// })
+				})
+            }catch(err){
+            	res.json({success:0,err:'database error'})
+            }
 
             	//res.json(success)
                 if (success.xml.return_code[0] === 'SUCCESS') {
 
                     const prepayId = success.xml.prepay_id[0]
                     const payParamsObj = getPayParams(prepayId, tradeId)
+                    payParamsObj.price=price
                     // 返回给前端, 这里是 express 的写法
                     res.json({success:1,data:payParamsObj})
                 } else {
