@@ -49,18 +49,18 @@ router.get('/create_order', function(req, res, next) {
             	// return
 
 
-            	mssql.insert('cxwx_order_info',{
-					openid:{
-						type:'',
-						value:openId
-					},
-					str:{
-						type:'',
-						value:success
-					}
-				},(err,result,count)=>{
+    //         	mssql.insert('cxwx_order_info',{
+				// 	openid:{
+				// 		type:'',
+				// 		value:openId
+				// 	},
+				// 	str:{
+				// 		type:'',
+				// 		value:success
+				// 	}
+				// },(err,result,count)=>{
 
-				})
+				// })
 
             	//res.json(success)
                 if (success.xml.return_code[0] === 'SUCCESS') {
