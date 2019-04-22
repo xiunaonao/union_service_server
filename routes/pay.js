@@ -27,13 +27,18 @@ router.get('/', function(req, res, next) {
 	const productIntro='长兴县总工会慈善分会'
 	const sign = getPrePaySign(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price)
 	const sendData = wxSendData(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price, sign)
-
 	axios.post('https://api.mch.weixin.qq.com/pay/unifiedorder', sendData).then(wxResponse => {
        // 微信返回的数据也是 xml, 使用 xmlParser 将它转换成 js 的对象
         xmlParser.parseString(wxResponse.data, (err, success) => {
+        	console.log(err)
+
+
             if (err) {
                 log('parser xml error ', err)
+                res.json(err)
             } else {
+            	res.json(success)
+            	return
                 if (success.xml.return_code[0] === 'SUCCESS') {
                     const prepayId = success.xml.prepay_id[0]
                     const payParamsObj = getPayParams(prepayId, tradeId)
