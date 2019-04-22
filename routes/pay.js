@@ -16,6 +16,9 @@ router.get('/create_order', function(req, res, next) {
 		res.json({error:'openid or price null'})
 		return
 	}
+	res.set({
+		'Access-Control-Allow-Origin': '*'
+	})
   //res.render('index', { title: 'Express' });
 	let url='https://api.mch.weixin.qq.com/pay/unifiedorder'
 	const attach = 'cx_union'
