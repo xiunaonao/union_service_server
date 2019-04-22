@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 	const price=1
 	const notifyUrl='http://www.weixin.qq.com/wxpay/pay.php'
 	const trade_type='JSAPI'
-	const openId=''
+	const openId='om-NlwIIEXNK_ghTdb_-U-lNhz8g'
 	const productIntro='长兴县总工会慈善分会'
 	const sign = getPrePaySign(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price)
 	const sendData = wxSendData(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price, sign)
