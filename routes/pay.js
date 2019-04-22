@@ -12,7 +12,7 @@ const PAY_API_KEY='Hzhm233Cxxzgh666Zxw999Txwx213213'
 
 /* GET home page. */
 router.get('/create_order', function(req, res, next) {
-	if(isNaN(req.query.price) || !req.query.openId){
+	if(isNaN(req.query.price) || !req.query.openid){
 		res.json({error:'openid or price null'})
 		return
 	}
