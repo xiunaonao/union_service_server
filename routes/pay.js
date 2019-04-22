@@ -14,9 +14,7 @@ const attach = 'cx_union'
 const appId='wxb5ed549f53f1ba99'
 const mchId='1532951301'
 const PAY_API_KEY='Hzhm233Cxxzgh666Zxw999Txwx213213'
-	const nonceStr=getNonceStr()
 	const sign_type='MD5'
-	const tradeId = getTradeId(attach)
 	const ip='121.43.36.218'
 	const notifyUrl='http://www.weixin.qq.com/wxpay/pay.php'
 	const trade_type='JSAPI'
@@ -37,8 +35,10 @@ router.get('/create_order', function(req, res, next) {
 	})
   //res.render('index', { title: 'Express' });
 	let url='https://api.mch.weixin.qq.com/pay/unifiedorder'
-
-	const price=req.query.price*100
+	
+	const nonceStr=getNonceStr()
+	const tradeId = getTradeId(attach)
+	const price=req.query.price
 	const openId=req.query.openid
 	const sign = getPrePaySign(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price)
 	const sendData = wxSendData(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price, sign)
@@ -46,7 +46,7 @@ router.get('/create_order', function(req, res, next) {
        // 微信返回的数据也是 xml, 使用 xmlParser 将它转换成 js 的对象
         xmlParser.parseString(wxResponse.data, (err, success) => {
         	console.log(err)
-
+        	console.log(success)
 
             if (err) {
                 log('parser xml error ', err)
