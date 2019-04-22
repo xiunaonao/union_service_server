@@ -7,10 +7,15 @@ const axios = require('axios')
 const md5 = require('blueimp-md5')
 const xml2js = require('xml2js')
 const xmlParser = new xml2js.Parser()
+let mssql=require('../server/mssql')
 const PAY_API_KEY='Hzhm233Cxxzgh666Zxw999Txwx213213'
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/create_order', function(req, res, next) {
+	if(!isNaN(req.query.price) || !req.query.openId){
+		res.json({error:'openid or price null'})
+		return
+	}
   //res.render('index', { title: 'Express' });
 	let url='https://api.mch.weixin.qq.com/pay/unifiedorder'
 	const attach = 'cx_union'
@@ -20,10 +25,10 @@ router.get('/', function(req, res, next) {
 	const sign_type='MD5'
 	const tradeId = getTradeId(attach)
 	const ip='121.43.36.218'
-	const price=1
+	const price=req.query.price
 	const notifyUrl='http://www.weixin.qq.com/wxpay/pay.php'
 	const trade_type='JSAPI'
-	const openId='om-NlwIIEXNK_ghTdb_-U-lNhz8g'
+	const openId=req.query.openid
 	const productIntro='长兴县总工会慈善分会'
 	const sign = getPrePaySign(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price)
 	const sendData = wxSendData(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price, sign)
@@ -39,6 +44,22 @@ router.get('/', function(req, res, next) {
             } else {
             	// res.json(success)
             	// return
+
+
+            	mssql.insert('cxwx_order_info',{
+					openid:{
+						type:'',
+						value:openId
+					},
+					str:{
+						type:'',
+						value:success
+					}
+				},(err,result,count)=>{
+
+				})
+
+
                 if (success.xml.return_code[0] === 'SUCCESS') {
                     const prepayId = success.xml.prepay_id[0]
                     const payParamsObj = getPayParams(prepayId, tradeId)
@@ -58,6 +79,12 @@ router.get('/', function(req, res, next) {
     }).catch(err => {
         log('post wx err', err)
     })
+
+})
+
+
+
+router.get('/pay',(req,res,next)=>{
 
 })
 
