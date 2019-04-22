@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+let payRouter=require('./routes/pay')
 
 
 var app = express();
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/pay',payRouter)
 app.use('/caring',require('./routes/caring'))
 app.use('/jt',require('./routes/jt'))
 
