@@ -25,6 +25,9 @@ router.post('/income_add',(req,res,next)=>{
 	let amount=req.price
 	let pid=20190501
 	let remark=req.remark
+	res.set({
+		'Access-Control-Allow-Origin': '*'
+	})
 	mssql.insert('caring_income_info',{
 		openid:{
 			type:'',
