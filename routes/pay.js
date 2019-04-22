@@ -77,7 +77,7 @@ router.get('/create_order', function(req, res, next) {
                     // 返回给前端, 这里是 express 的写法
                     res.json({success:1,data:payParamsObj})
                 } else {
-                	res.json({success:0.data:null})
+                	res.json({success:0,data:null})
                     // 错误处理
                     // if (err) {
                     //     //log('axios post error', err)
