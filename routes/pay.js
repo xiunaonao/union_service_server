@@ -81,6 +81,7 @@ router.get('/create_order', function(req, res, next) {
         })
     }).catch(err => {
         log('post wx err', err)
+        res.json({err:err})
     })
 
 })
