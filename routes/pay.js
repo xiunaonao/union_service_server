@@ -59,21 +59,21 @@ router.get('/create_order', function(req, res, next) {
 
 				})
 
-
-                if (success.xml.return_code[0] === 'SUCCESS') {
-                    const prepayId = success.xml.prepay_id[0]
-                    const payParamsObj = getPayParams(prepayId, tradeId)
-                    // 返回给前端, 这里是 express 的写法
-                    res.json(payParamsObj)
-                } else {
-                    // 错误处理
-                    if (err) {
-                        log('axios post error', err)
-                        res.sendStatus(502)
-                    } else if (success.xml.return_code[0] !== 'SUCCESS') {
-                        res.sendStatus(403)
-                    }
-                }
+            	res.json(success)
+                // if (success.xml.return_code[0] === 'SUCCESS') {
+                //     const prepayId = success.xml.prepay_id[0]
+                //     const payParamsObj = getPayParams(prepayId, tradeId)
+                //     // 返回给前端, 这里是 express 的写法
+                //     res.json(payParamsObj)
+                // } else {
+                //     // 错误处理
+                //     if (err) {
+                //         log('axios post error', err)
+                //         res.sendStatus(502)
+                //     } else if (success.xml.return_code[0] !== 'SUCCESS') {
+                //         res.sendStatus(403)
+                //     }
+                // }
             }
         })
     }).catch(err => {
