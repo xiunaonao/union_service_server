@@ -90,7 +90,7 @@ router.post('/new_user',(req,res,next)=>{
 })
 
 router.post('/sign_now',(req,res,next)=>{
-	let openid=req.query.openid
+	let openid=req.body.openid
 	let today=dateStr(new Date(),true)
 
 	mssql.exist('jt_sign_info',` openid='${openid}' and created_time>='${today}' `,(err,result,count)=>{
@@ -105,9 +105,9 @@ router.post('/sign_now',(req,res,next)=>{
 			res.json({success:0,msg:'今日已签到'})
 		}else{
 			mssql.insert('jt_sgin_info',{
-				acitivity_id:1,
-				created_time:dateStr(new Date()),
-				openid:openid
+				acitivity_id:{type:'num',value:1},
+				created_time:{type:'',value:dateStr(new Date())},
+				openid:{type:'',value:openid}
 			},(err,result,count)=>{
 				if(err){
 					res.json({success:0,msg:'网络异常'})
