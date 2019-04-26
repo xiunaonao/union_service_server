@@ -104,7 +104,7 @@ router.post('/sign_now',(req,res,next)=>{
 		if(count>0){
 			res.json({success:0,msg:'今日已签到'})
 		}else{
-			mssql.insert('jt_sgin_info',{
+			mssql.insert('jt_sign_info',{
 				acitivity_id:{type:'num',value:1},
 				created_time:{type:'',value:dateStr(new Date())},
 				openid:{type:'',value:openid}
