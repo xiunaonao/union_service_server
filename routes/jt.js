@@ -98,11 +98,11 @@ router.post('/sign_now',(req,res,next)=>{
 			'Access-Control-Allow-Origin': '*'
 		})
 		if(err){
-			res.json({success:0})
+			res.json({success:0,err:err})
 			return
 		}
 		if(count>0){
-			res.json({success:0,msg:'今日已签到'})
+			res.json({success:0,msg:'今日已签到')
 		}else{
 			mssql.insert('jt_sgin_info',{
 				acitivity_id:1,
@@ -114,7 +114,7 @@ router.post('/sign_now',(req,res,next)=>{
 					return
 				}
 				if(count>0){
-					res.json({success:1,msg:'签到成功'})
+					res.json({success:1,msg:'签到成功',date:new Date()toISOString()}})
 				}else{
 					res.json({success:1,msg:'操作失败'})
 				}
