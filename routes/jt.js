@@ -102,7 +102,7 @@ router.post('/sign_now',(req,res,next)=>{
 			return
 		}
 		if(count>0){
-			res.json({success:0,msg:'今日已签到')
+			res.json({success:0,msg:'今日已签到'})
 		}else{
 			mssql.insert('jt_sgin_info',{
 				acitivity_id:1,
