@@ -80,8 +80,10 @@ router.post('/new_user',(req,res,next)=>{
 				if(err){
 
 				}else{
-					if(count>0)
+					if(count>0){
 						res.json({success:1})
+						return
+					}
 				}
 				res.json({success:0})
 			})
