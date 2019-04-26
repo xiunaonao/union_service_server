@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 let mssql=require('../server/mssql')
-let wechat=require('../server/wechat')
+let wechat=require('../server/wechat_free')
 
 /* GET users listing. */
 router.get('/', (req, res, next)=>{
@@ -16,6 +16,10 @@ router.get('/wechat',(req,res,next)=>{
 
 router.get('/wechat_user',(req,res,next)=>{
 	let code =req.query.code
+	let token={
+		appid:'wxc2928955e4ac8dde',
+		secret:'b5477eb1bc90748873eec91e7669dbde'
+	}
 	wechat.get_web_token(code,(err,body)=>{
 		console.log(body)
 		console.log('error')
@@ -23,7 +27,7 @@ router.get('/wechat_user',(req,res,next)=>{
 			res.json({success:1,data:body})
 		else
 			res.json({success:0,data:null})
-	},code)
+	},token)
 })
 
 
