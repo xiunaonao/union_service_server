@@ -9,8 +9,8 @@ router.get('/', (req, res, next)=>{
 });
 
 router.get('/wechat',(req,res,next)=>{
-	let url=encodeURIComponent('http://service.123zou.com/#/jt/signin/0').toLocaleLowerCase()
-	let appid='wx7bc344f62f4fdaa3'
+	let url=encodeURIComponent('http://service.123zou.com/#/jt/signin').toLocaleLowerCase()
+	let appid='wxc2928955e4ac8dde'
 	res.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
 })
 
