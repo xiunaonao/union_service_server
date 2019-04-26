@@ -114,7 +114,7 @@ router.post('/sign_now',(req,res,next)=>{
 					return
 				}
 				if(count>0){
-					res.json({success:1,msg:'签到成功',date:new Date()toISOString()}})
+					res.json({success:1,msg:'签到成功',date:new Date()toISOString()})
 				}else{
 					res.json({success:1,msg:'操作失败'})
 				}
