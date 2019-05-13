@@ -1,8 +1,6 @@
 let request=require('request')
 request=request.defaults({jar: true})
 
-// const secret='8260a54e8dec7e4d740770bc69fe4bb9'
-// const appid='wx7bc344f62f4fdaa3'
 
 
 function get_token(callback,wechat_token){

@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 let request=require('request')
+const cx_wechat=require('../dataWechat.json')
 request=request.defaults({jar: true})
-let union_wechat={appid:'wxb5ed549f53f1ba99',secret:'9e2e9837c28f3f849613c23cd1aa9a81'}
+let union_wechat=cx_wechat.cx.wechat
 const axios = require('axios')
 const md5 = require('blueimp-md5')
 const xml2js = require('xml2js')
@@ -10,16 +11,7 @@ const xmlParser = new xml2js.Parser()
 let mssql=require('../server/mssql')
 
 
-const attach = 'cx_union'
-const appId='wxb5ed549f53f1ba99'
-const mchId='1532951301'
-const PAY_API_KEY='Hzhm233Cxxzgh666Zxw999Txwx213213'
-	const sign_type='MD5'
-	const ip='121.43.36.218'
-	const notifyUrl='http://www.weixin.qq.com/wxpay/pay.php'
-	const trade_type='JSAPI'
-	const productIntro='长兴县总工会慈善分会'
-
+const {attach,appId,mchId,PAY_API_KEY,sign_type,ip,notifyUrl,trade_type,productIntro} = cx_wechat.cx;
 
 
 
@@ -109,7 +101,7 @@ router.get('/pay',(req,res,next)=>{
 
 function getNonceStr() {
     var text = ""
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    var possible = cx_wechat.cx.possible;
     for (var i = 0; i < 16; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length))
     }

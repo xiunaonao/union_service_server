@@ -2,3 +2,4 @@
 node_modules
 /dist
 dataServer.json
+dataWechat.json
